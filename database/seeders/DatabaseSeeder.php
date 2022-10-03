@@ -9,5 +9,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         // $this->call(UserSeeder::class);
         $this->call('Database\Seeders\data\UserSeeder');
+        $this->call('Database\Seeders\data\CategorySeeder');
+        $this->call('Database\Seeders\data\EventSeeder');
     }
 }
