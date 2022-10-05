@@ -55,7 +55,7 @@
                                 </tbody>
 
                             </table>
-                            {{ $evento->links() }}
+                            {{-- {{ $evento->links() }} --}}
                         </div>
                     </div>
                 </div>

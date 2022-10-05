@@ -14,7 +14,7 @@ class Event extends Model
     //requisitos para la asignacion masiva
     static $rules = [
         'titulo' => 'required',
-        'tipo' => 'required',
+        // 'tipo' => 'required',
         'descripcion' => 'required',
         'fecha' => 'required',
         'category_id' => 'required',

@@ -9,7 +9,7 @@ class EventFile extends Model
 {
     use HasFactory;
     //asignacion masiva
-    protected $fillable = ['id', 'url', 'urlp', 'event_id'];
+    protected $fillable = ['id', 'url', 'urlP', 'event_id'];
     //requisitos para la asignacion masiva
     static $rules = [
         'url' => 'required',

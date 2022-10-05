@@ -17,8 +17,8 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->integer('category_id')->unsigned();
             $table->string('titulo');
-            $table->string('tipo');
-            $table->text('descripcion');
+            // $table->string('tipo');
+            $table->text('descripcion')->nullable();
             $table->dateTime('fecha');
             $table->foreign('category_id')->references('id')->on('events')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
