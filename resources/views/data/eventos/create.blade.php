@@ -23,15 +23,6 @@
                                 </div>
                             @endif
 
-                            {{-- <div style="margin-block: 10px">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#modalAgregarCategoria">
-                                    <i class="fa fa-bars"></i><span> Categoria</span>
-                                </button>
-                            </div> --}}
-
-
-
                             <form action="{{ route('eventos.store') }}" method="POST">
                                 @csrf
 
@@ -55,13 +46,22 @@
                                             </div>
                                         </div>
 
-                                        
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-calendar"> Fecha Hora</i>
+                                                </span>
+                                                <input type="datetime-local" id="fechaHora" name="fecha"
+                                                    class="form-control" value="{{ now() }}">
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-bars"> Categoria</i>
                                                 </span>
-                                                <select name="id_categoria" id="id_categoria" class="form-control">
+                                                <select name="category_id" id="id_categoria" class="form-control">
                                                     @foreach ($categorias as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                                                     @endforeach
@@ -72,13 +72,13 @@
                                                 </button>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-text">
-                                                    <i class="fa fa-calendar"> Fecha Hora</i>
+                                                    <i class="fa fa-bars"> Fotos</i>
                                                 </span>
-                                                <input type="datetime-local" id="fechaHora" name="fechaHora" class="form-control" value="{{now()}}">
+                                                <input  class="btn btn-primary" type="file" name="files[]" id="archivos" multiple required>
                                             </div>
                                         </div>
 
@@ -96,6 +96,9 @@
             </div>
         </div>
     </section>
+
+
+
     <div class="modal fade" id="modalAgregarCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

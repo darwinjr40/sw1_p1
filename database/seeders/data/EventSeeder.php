@@ -18,21 +18,21 @@ class EventSeeder extends Seeder
           'category_id' => 1,
           'titulo' => 'Conferencias Uagrm',
           'descripcion' => 'Bienvenidos a las conferencias uagrm, para un mejor desarollo',
-          'tipo' => 'fotos',
+          // 'tipo' => 'fotos',
           'fecha' => now()->format("Y-m-d H:i:s"),
         ]);
         Event::create([
           'category_id' => 1,
           'titulo' => 'Concierto Rock',
           'descripcion' => 'El mejor concierto de todos',
-          'tipo' => 'asistencia',
+          // 'tipo' => 'asistencia',
           'fecha' => now()->format("Y-m-d H:i:s"),
         ]);
         Event::create([
           'category_id' => 1,
           'titulo' => 'Conferencia',
           'descripcion' => 'confraternizacion',
-          'tipo' => 'publico',
+          // 'tipo' => 'publico',
           'fecha' => now()->format("Y-m-d H:i:s"),
         ]);
     }

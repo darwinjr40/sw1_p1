@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\EventFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -40,7 +42,31 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(Event::$rules);
+        Event::create($request->all());
+        EventFile::create($request->all());
+
+        if ($request->hasFile('files')) {  //existe un archivo con nombre <files>
+            $imagen= [];
+            $data = array("evento_id" => $request['evento_id']);
+            $files = $request->file('files'); //retorna un object con los datos de los archivos
+            foreach ($files as $file) {
+                $data['pathPrivate'] = Storage::disk('s3')->put($data['evento_id'], $file, 'public');
+                $data['path'] = Storage::disk('s3')->url($data['pathPrivate']);
+                // $data['pathPrivate'] = '';
+                // $data['path'] = '';
+                $imagen[] = $data;
+            }
+            $request['datos'] = $imagen;
+        }
+        // $url = config('services.endpoint.service').'/api/imagenes-api';
+        // if (isset($response['errors'])) {
+        //     return back()->withErrors($response->json()['errors']);
+        // } else {
+        //     return back()->with('success', $response->json()['message']);
+        // }
+
+        return redirect()->route('eventos.index');
     }
 
     /**

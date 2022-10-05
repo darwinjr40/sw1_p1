@@ -9,13 +9,16 @@ use App\Traits\ApiTrait;
 class Event extends Model
 {
     use HasFactory, ApiTrait;
-
+    //asignacion masiva
+    protected $fillable = ['id', 'titulo', 'tipo', 'descripcion', 'fecha', 'category_id'];
+    //requisitos para la asignacion masiva
     static $rules = [
-		'titulo' => 'required',
+        'titulo' => 'required',
         'tipo' => 'required',
-		'descripcion' => 'required',
+        'descripcion' => 'required',
         'fecha' => 'required',
         'category_id' => 'required',
+        'files' => 'required'    
     ];
     //endpoints, para las relaciones
     protected $allowIncluded = ['categoria'];
@@ -23,15 +26,12 @@ class Event extends Model
     protected $allowFilter = ['id', 'titulo', 'tipo', 'fecha'];
     //para la api, por el cual se va poder ordenar
     protected $allowSort = ['id', 'titulo', 'tipo', 'fecha'];
-    //asignacion masiva
-    protected $fillable = ['id', 'titulo', 'tipo', 'descripcion','fecha', 'category_id'];
-
 
     public function categoria()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-// otra opcion
+    // otra opcion
     // public function category()
     // {
     //     return $this->belongsTo(Category::class);
