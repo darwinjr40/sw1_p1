@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $evento=Event::paginate(5);
+        return view('data.eventos.index',compact('evento'));
     }
 
     /**
@@ -24,7 +26,10 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $categorias=Category::all();
+        // $contactos=Contacto::all();
+        // $ubicacions = Ubicacion::all();
+        return view('data.eventos.create',compact('categorias'));
     }
 
     /**
