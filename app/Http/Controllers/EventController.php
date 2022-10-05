@@ -72,4 +72,15 @@ class EventController extends Controller
         $event->delete();
         return back();
     }
+
+    public function showcliente(){
+        // $eventos=Event::where('estado','inicio')->get();
+        $eventos = Event::all();
+        $eventos->load('imagenes');
+        // return $eventos;
+        // return $eventos;//[0]['imagenes'][0];
+        // $buscador=Evento::where('estado','inicio')->pluck('id','titulo');
+        // Session::put('eventos', json_encode($buscador));
+        return view("eventos.showcliente",compact('eventos'));
+    }
 }

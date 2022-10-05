@@ -16,4 +16,10 @@ class EventFile extends Model
         'urlP' => 'required',
         'event_id' => 'required',
     ];
+
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }
