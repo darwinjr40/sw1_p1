@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+        //endpoints, para las relaciones
+        protected $allowIncluded = ['eventos'];
+        //para la api, por el cual se va poder filtrar
+        protected $allowFilter = ['id', 'nombre', 'descripcion'];
+        //para la api, por el cual se va poder ordenar
+        protected $allowSort = ['id', 'nombre', 'descripcion'];
+        //asignacion masiva
+        protected $fillable = ['id', 'nombre', 'descripcion'];
+        
+    public function eventos()
+    {
+        return $this->hasMany(Event::class);
+    }
 }
