@@ -23,8 +23,8 @@ Route::middleware([
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 Auth::routes();
 
 Route::resource('eventos',EventController::class);
+Route::get('eventos-tienda',[EventController::class,'tienda'])->name('eventos.tienda');
 Route::resource('categorias',CategoryController::class);

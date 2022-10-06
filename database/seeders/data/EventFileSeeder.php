@@ -9,7 +9,7 @@ class EventFileSeeder extends Seeder
 {
  
 
-    public function run()
+    public function run() 
     {
         EventFile::create([
             'event_id' => 1,

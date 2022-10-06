@@ -73,14 +73,15 @@ class EventController extends Controller
         return back();
     }
 
-    public function showcliente(){
+    public function tienda(){
         // $eventos=Event::where('estado','inicio')->get();
         $eventos = Event::all();
-        $eventos->load('imagenes');
+        $eventos->load('files');//carga la relacion files
+        // return $eventos;
         // return $eventos;
         // return $eventos;//[0]['imagenes'][0];
         // $buscador=Evento::where('estado','inicio')->pluck('id','titulo');
         // Session::put('eventos', json_encode($buscador));
-        return view("eventos.showcliente",compact('eventos'));
+        return view("data.eventos.showcliente",compact('eventos'));
     }
 }
