@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
+use Database\Seeders\data\PaperSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     public function run()
@@ -12,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call('Database\Seeders\data\CategorySeeder');
         $this->call('Database\Seeders\data\EventSeeder');
         $this->call('Database\Seeders\data\EventFileSeeder');
+        $this->call(PaperSeeder::class);
     }
 }

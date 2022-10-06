@@ -15,6 +15,11 @@ class CreatePapersTable extends Migration
     {
         Schema::create('papers', function (Blueprint $table) {
             $table->id();
+            $table->integer('event_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('tipo');
+            $table->foreign('event_id')->references('id')->on('events')->cascadeOnUpdate()->cascadeOnDelete(); 
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete(); 
             $table->timestamps();
         });
     }
