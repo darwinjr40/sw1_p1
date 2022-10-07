@@ -49,10 +49,10 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-text">
-                                                    <i class="fa fa-calendar"> Fecha Hora</i>
+                                                    <i class="fa fa-calendar"> Fecha y Hora</i>
                                                 </span>
                                                 <input type="datetime-local" id="fechaHora" name="fecha"
-                                                    class="form-control" value="{{ now() }}">
+                                                    class="form-control" value="{{ now()->format("Y-m-d H:i") }}">
                                             </div>
                                         </div>
 
