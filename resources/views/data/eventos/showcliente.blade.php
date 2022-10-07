@@ -12,7 +12,7 @@
         @foreach ($eventos as $evento)
         <div class="col-4" style="font-size: 14px;">
             {{-- <a href="{{route('tickets.addEvento1', $evento->id)}}"><img src="{{$evento->imagenes[0]->path}}" alt="" style="width: 80%;"></a> --}}
-            <a href=""><img src="{{$evento->files[0]->url}}" alt="" style="width: 80%;"></a>
+            <a href="{{route('eventos.show', $evento->id)}}"><img src="{{$evento->files[0]->url}}" alt="" style="width: 80%;"></a>
             {{-- <h1>$evento</h1> --}}
             <h4 style="color: #555; font-weight: normal">{{$evento->titulo}}</h4>
             <div style="color: #ff523b">

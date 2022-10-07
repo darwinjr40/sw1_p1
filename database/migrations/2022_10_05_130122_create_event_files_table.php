@@ -14,7 +14,7 @@ class CreateEventFilesTable extends Migration
     public function up()
     {
         Schema::create('event_files', function (Blueprint $table) {
-            $table->id();
+            $table->id();            
             $table->integer('event_id')->unsigned();
             $table->string('url');
             $table->string('urlP');

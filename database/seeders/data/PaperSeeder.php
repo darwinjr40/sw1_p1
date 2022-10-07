@@ -15,19 +15,35 @@ class PaperSeeder extends Seeder
     public function run()
     {
         Paper::create([
-          'user_id' => '1',
+          'user_id' => '4',
           'event_id' => '1',
-          'tipo' => 'fotografo',
+          'tipo' => 'F',
+        ]); 
+        // Paper::create([
+        //   'user_id' => '4',
+        //   'event_id' => '1',
+        //   'tipo' => 'I',
+        // ]);
+        Paper::create([
+          'user_id' => '4',
+          'event_id' => '2',
+          'tipo' => 'F',
+        ]);
+
+        Paper::create([
+          'user_id' => '4',
+          'event_id' => '3',
+          'tipo' => 'F',
         ]);
         Paper::create([
-          'user_id' => '2',
+          'user_id' => '5',
           'event_id' => '1',
-          'tipo' => 'invitado',
+          'tipo' => 'I',
         ]);
         Paper::create([
-          'user_id' => '3',
+          'user_id' => '6',
           'event_id' => '1',
-          'tipo' => 'invitado',
+          'tipo' => 'I',
         ]);
 
     }

@@ -16,15 +16,19 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        // return view('dashboard');
+        // return Auth::user()->name;
+        return redirect()->route('eventos.index');
     })->name('dashboard');
-});
+  });
+  
+  
+  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+  
+  Auth::routes();
+  
+  Route::get('eventos-tienda', [EventController::class,'tienda'])->name('eventos.tienda');
+  
+  Route::resource('eventos', EventController::class);
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::resource('eventos',EventController::class);
-Route::get('eventos-tienda',[EventController::class,'tienda'])->name('eventos.tienda');
-Route::resource('categorias',CategoryController::class);
+Route::resource('categorias', CategoryController::class);

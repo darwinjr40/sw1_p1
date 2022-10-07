@@ -18,11 +18,9 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
+    CONST ADMINISTRADOR = 'A';
+    CONST FOTOGRAFO = 'F';
+    CONST INVITADO = 'I';
     protected $fillable = [
         'name',
         'email',
@@ -58,4 +56,17 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function eventos()
+    {
+      return $this->hasMany(Event::class);
+    }
+
+    public function papers()
+    {
+      return $this->hasMany(Paper::class);
+    }
+
+    
 }

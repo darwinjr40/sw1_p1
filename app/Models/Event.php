@@ -10,7 +10,7 @@ class Event extends Model
 {
     use HasFactory, ApiTrait;
     //asignacion masiva
-    protected $fillable = ['id', 'titulo', 'tipo', 'descripcion', 'fecha', 'category_id'];
+    protected $fillable = ['id', 'titulo', 'tipo', 'descripcion', 'fecha', 'category_id', 'user_id'];
     //requisitos para la asignacion masiva
     static $rules = [
         'titulo' => 'required',
@@ -39,5 +39,15 @@ class Event extends Model
     public function files()
     {
         return $this->hasMany(EventFile::class);
+    }
+
+    public function papers()
+    {
+        return $this->hasMany(Paper::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

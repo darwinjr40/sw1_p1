@@ -15,6 +15,7 @@ class EventSeeder extends Seeder
     public function run()
     {
         Event::create([
+          'user_id' => 1,
           'category_id' => 1,
           'titulo' => 'Conferencias Uagrm',
           'descripcion' => 'Bienvenidos a las conferencias uagrm, para un mejor desarollo',
@@ -22,6 +23,7 @@ class EventSeeder extends Seeder
           'fecha' => now()->format("Y-m-d H:i:s"),
         ]);
         Event::create([
+          'user_id' => 1,
           'category_id' => 1,
           'titulo' => 'Concierto Rock',
           'descripcion' => 'El mejor concierto de todos',
@@ -29,6 +31,7 @@ class EventSeeder extends Seeder
           'fecha' => now()->format("Y-m-d H:i:s"),
         ]);
         Event::create([
+          'user_id' => 1,
           'category_id' => 1,
           'titulo' => 'Conferencia',
           'descripcion' => 'confraternizacion',
