@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Storage;
 class EventController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+  
   public function index()
   {
     $evento = Event::paginate(5);
@@ -33,25 +38,27 @@ class EventController extends Controller
   public function store(Request $request)
   {
     $request->validate(Event::$rules);
-    try {
-      if ($request->hasFile('files')) {  //existe un archivo con nombre <files>
-        $e = Event::create($request->all());
-        // $data = array("evento_id" => $request['evento_id']);
-        $dir = 'sw1_p1/event/' . ($e->id);
-        $files = $request->file('files'); //retorna un object con los datos de los archivos
-        foreach ($files as $f) {
-          $url = Storage::disk('s3')->put($dir, $f, 'public');
-          $urlP = Storage::disk('s3')->url($url);
-          EventFile::create([
-            'url' => $url,
-            'urlP' => $urlP,
-            'event_id' => $e->id
-          ]);
-        }
+    // try {
+    if ($request->hasFile('files')) {  //existe un archivo con nombre <files>
+      $request['user_id'] = Auth::user()->id;
+      $e = Event::create($request->all());
+      // $data = array("evento_id" => $request['evento_id']);
+      $dir = 'sw1_p1/event/' . ($e->id);
+      $files = $request->file('files'); //retorna un object con los datos de los archivos
+      foreach ($files as $f) {
+
+        $urlP = Storage::disk('s3')->put($dir, $f, 'public');
+        $url = Storage::disk('s3')->url($urlP);
+        EventFile::create([
+          'url' => $url,
+          'urlP' => $urlP,
+          'event_id' => $e->id
+        ]);
       }
-    } catch (\Throwable $th) {
-      return back()->withErrors('Algo salio mal!, intentelo mas tarde');
     }
+    // } catch (\Throwable $th) {
+    //   return back()->withErrors('Algo salio mal!, intentelo mas tarde');
+    // }
     return redirect()->route('eventos.index');
     //     return back()->with('success', $response->json()['message']);
   }
@@ -69,13 +76,18 @@ class EventController extends Controller
     }
     $papers = $event->papers->where('user_id', $user->id)->first();
     // $papers = Paper::all()->whereIn('event_id', Event::all()->where('id', $event->id)->pluck('id'))->whereIn('user_id', User::all()->where('id', $user->id)->pluck('id'));
+    // return $papers;
+    if ($papers) {
+      if ($papers->tipo == User::FOTOGRAFO) {
+        $paper_id = $papers->id;
+        return redirect()->route('papers.indexFotografo', ['paper_id' => $paper_id]);
 
-    if ($papers->tipo == User::FOTOGRAFO) {
-      $files = PaperFile::all();
-      return view('data.eventos.show-fotografo', compact('files'));
-      // return "es fotografo";
-    } else {
-      return "es Invitado";
+        // $files = PaperFile::all();
+        // return view('data.eventos.show-fotografo', compact('files'));
+        // return "es fotografo";
+      } else {
+        return "es Invitado";
+      }
     }
     return "no puede acceder al evento";
   }

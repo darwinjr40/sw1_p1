@@ -10,7 +10,7 @@ class Event extends Model
 {
     use HasFactory, ApiTrait;
     //asignacion masiva
-    protected $fillable = ['id', 'titulo', 'tipo', 'descripcion', 'fecha', 'category_id', 'user_id'];
+    protected $fillable = ['id', 'titulo', 'descripcion', 'fecha', 'category_id', 'user_id'];
     //requisitos para la asignacion masiva
     static $rules = [
         'titulo' => 'required',

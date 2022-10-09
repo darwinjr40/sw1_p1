@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EventApiController;
+use App\Http\Controllers\PhotosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource('api-events', EventApiController::class)->names('api-events');
+Route::post('subirFile', [PhotosController::class, 'subirFile']);
 
 
 

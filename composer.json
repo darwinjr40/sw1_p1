@@ -9,12 +9,15 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/laravel-ui-stisla": "^3.1",
+        "laravel-lang/lang": "^9.0",
         "laravel/framework": "^8.75",
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "aws/aws-sdk-php": "3.219",
         "league/flysystem-aws-s3-v3": "^1.0.29",
         "livewire/livewire": "^2.5"
+        
     },
     "require-dev": {
         "facade/ignition": "^2.5",

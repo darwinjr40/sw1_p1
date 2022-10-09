@@ -18,4 +18,9 @@ class Paper extends Model
   {
     return $this->belongsTo(Event::class);
   }
+
+  public function paperFiles()
+  {
+    return $this->hasMany(PaperFile::class);
+  }
 }

@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use Database\Seeders\data\EventFileSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\data\PaperSeeder;
 
@@ -13,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call('Database\Seeders\data\UserSeeder');
         $this->call('Database\Seeders\data\CategorySeeder');
         $this->call('Database\Seeders\data\EventSeeder');
-        $this->call('Database\Seeders\data\EventFileSeeder');
+        $this->call(EventFileSeeder::class);
         $this->call(PaperSeeder::class);
     }
 }

@@ -65,4 +65,7 @@
             </form>
         </div>
     </div>
+    <div class="mt-5 text-muted text-center">
+        Sign up <a href="{{ route('register') }}">Register</a>
+    </div>
 @endsection

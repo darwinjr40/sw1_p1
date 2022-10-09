@@ -3,6 +3,7 @@
 namespace Database\Seeders\data;
 
 use App\Models\EventFile;
+use App\Models\PaperFile;
 use Illuminate\Database\Seeder;
 
 class EventFileSeeder extends Seeder
@@ -26,5 +27,8 @@ class EventFileSeeder extends Seeder
             'url' => 'https://s3service12.s3.amazonaws.com/1/QEybepluhsVHUFsNReE5k3X7zFU8nfp5Bau0ViHQ.webp',
             'urlP' => '1/QEybepluhsVHUFsNReE5k3X7zFU8nfp5Bau0ViHQ.webp'
         ]);
+
+
+        
     }
 }

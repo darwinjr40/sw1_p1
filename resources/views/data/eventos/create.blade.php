@@ -12,8 +12,8 @@
                         <div class="card-body">
 
                             @if ($errors->any())
+                            <strong >¡Revise los campos!</strong>
                                 <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                                    <strong>¡Revise los campos!</strong>
                                     @foreach ($errors->all() as $error)
                                         <span class="badge badge-danger">{{ $error }}</span>
                                     @endforeach

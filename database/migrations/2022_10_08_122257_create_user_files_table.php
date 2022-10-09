@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaperFilesTable extends Migration
+class CreateUserFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePaperFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('paper_files', function (Blueprint $table) {
+        Schema::create('user_files', function (Blueprint $table) {
             $table->id();
-            $table->integer('paper_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('url');
             $table->string('urlP');
-            $table->foreign('paper_id')->references('id')->on('papers')->cascadeOnUpdate()->cascadeOnDelete();    
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();            
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreatePaperFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paper_files');
+        Schema::dropIfExists('user_files');
     }
 }
