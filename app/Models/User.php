@@ -68,5 +68,10 @@ class User extends Authenticatable
       return $this->hasMany(Paper::class);
     }
 
+    public function userFiles()
+    {
+      return $this->hasMany(UserFile::class);
+    }
+
     
 }

@@ -31,11 +31,11 @@ class PaperSeeder extends Seeder
           'tipo' => 'F',
         ]);
 
-        // Paper::create([
-        //   'user_id' => '4',
-        //   'event_id' => '3',
-        //   'tipo' => 'F',
-        // ]);
+        Paper::create([
+          'user_id' => '7',
+          'event_id' => '1',
+          'tipo' => 'F',
+        ]);
         Paper::create([
           'user_id' => '5',
           'event_id' => '1',
