@@ -34,15 +34,6 @@
                         {{-- <span class="fas fa-plus-circle"></span> --}}
                         <span class="fas fa-fw fa-plus"></span>Imagenes 
                     </span>
-                    <form action="{{ route('papers.storeAparece') }}" method="POST" enctype="multipart/form-data">
-                      @csrf
-                      {{-- <a class="btn btn-sm btn-dark" href="{{ $file->url ? $file->url : '#' }}"><i
-                              class="fa fa-fw fa-eye"></i></a> --}}
-                      <button type="submit" class="btn btn-danger btn-sm"><i
-                              class="fa fa-fw fa-trash"></i> cargar ia
-                      </button>
-                      <input name="paper_id" type="hidden" value="{{ $paper_id }}" class="hidden">
-                    </form>
                 </div>
                 {{-- </div> --}}
 
@@ -68,7 +59,7 @@
                                         <img src="{{ $file->url }}" alt="" class="ejemploblur" width="60%">
                                     </td>
                                     <td >
-                                        <form action="{{ route('papers.destroy', $file) }}" method="POST">
+                                        <form action="{{ route('papers.destroy', $file->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <a class="btn btn-sm btn-dark" href="{{ $file->url ? $file->url : '#' }}"><i
@@ -126,7 +117,7 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/show-cliente/estilos.css') }}">
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/show-cliente/estilos.css') }}"> --}}
 {{-- ejemploblur --}}
 
 @stop

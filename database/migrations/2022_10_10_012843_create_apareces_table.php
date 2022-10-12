@@ -14,15 +14,17 @@ class CreateAparecesTable extends Migration
     public function up()
     {
         Schema::create('apareces', function (Blueprint $table) {
-            // $table->id();
+            $table->id();
             $table->integer('paper_id')->unsigned();
             $table->integer('paper_file_id')->unsigned();
+            $table->integer('venta_id')->unsigned()->default(0);
             $table->string('url');
             $table->string('urlP');
 
             $table->foreign('paper_id')->references('id')->on('papers')->cascadeOnUpdate()->cascadeOnDelete(); 
-            $table->foreign('paper_file_id')->references('id')->on('paper_files')->cascadeOnUpdate()->cascadeOnDelete();            
-            $table->primary(['paper_id','paper_file_id']);
+            $table->foreign('paper_file_id')->references('id')->on('paper_files')->cascadeOnUpdate()->cascadeOnDelete(); 
+            // $table->foreign('venta_id')->references('id')->on('ventas');           
+            // $table->primary(['paper_id','paper_file_id']);
             $table->timestamps();
         });
     }

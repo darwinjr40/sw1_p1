@@ -88,8 +88,8 @@ class EventController extends Controller
         // return "es fotografo";
       } else {
         // return "es Invitado";
-        return $papers;
-        return redirect()->route('aparece.indexPaper', ['paper_id' => $paper_id]);
+        // return $papers;
+        return redirect()->route('aparece.inicioPaper', ['paper_id' => $paper_id, ]);
       }
     }
     return "no puede acceder al evento";

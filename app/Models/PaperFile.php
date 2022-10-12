@@ -22,4 +22,9 @@ class PaperFile extends Model
     {
         return $this->belongsTo(Paper::class);
     }
+
+    public function apareces()
+    {
+        return $this->hasMany(Aparece::class);
+    }
 }
