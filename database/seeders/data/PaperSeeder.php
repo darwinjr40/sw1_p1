@@ -37,14 +37,14 @@ class PaperSeeder extends Seeder
         ]);
         Paper::create([
           'user_id' => '5',
-          'event_id' => '3',
+          'event_id' => '2',
           'tipo' => 'F',
         ]);
-        Paper::create([
-          'user_id' => '5',
-          'event_id' => '3',
-          'tipo' => 'F',
-        ]);
+        // Paper::create([
+        //   'user_id' => '5',
+        //   'event_id' => '3',
+        //   'tipo' => 'F',
+        // ]);
         Paper::create([
           'user_id' => '6',
           'event_id' => '1',
