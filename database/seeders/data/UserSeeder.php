@@ -45,8 +45,8 @@ class UserSeeder extends Seeder
       ]);
 
       User::create([
-        'name'=> 'invitado1',
-        'email'=> 'invitado1@gmail.com',
+        'name'=> 'fotografo2',
+        'email'=> 'fotografo2@gmail.com',
         'password'=> Hash::make('0000'),
         // 'rol_id'=> 1
       ]);

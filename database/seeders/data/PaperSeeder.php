@@ -20,11 +20,11 @@ class PaperSeeder extends Seeder
           'event_id' => '2',
           'tipo' => 'F',
         ]); 
-        // Paper::create([
-        //   'user_id' => '4',
-        //   'event_id' => '1',
-        //   'tipo' => 'I',
-        // ]);
+        Paper::create([
+          'user_id' => '4',
+          'event_id' => '3',
+          'tipo' => 'F',
+        ]);
         Paper::create([
           'user_id' => '4',
           'event_id' => '1',
@@ -33,7 +33,17 @@ class PaperSeeder extends Seeder
         Paper::create([
           'user_id' => '5',
           'event_id' => '1',
-          'tipo' => 'I',
+          'tipo' => 'F',
+        ]);
+        Paper::create([
+          'user_id' => '5',
+          'event_id' => '3',
+          'tipo' => 'F',
+        ]);
+        Paper::create([
+          'user_id' => '5',
+          'event_id' => '3',
+          'tipo' => 'F',
         ]);
         Paper::create([
           'user_id' => '6',
@@ -48,6 +58,28 @@ class PaperSeeder extends Seeder
         Paper::create([
           'user_id' => '8',
           'event_id' => '1',
+          'tipo' => 'I',
+        ]);
+
+        Paper::create([
+          'user_id' => '7',
+          'event_id' => '2',
+          'tipo' => 'I',
+        ]);
+        Paper::create([
+          'user_id' => '8',
+          'event_id' => '2',
+          'tipo' => 'I',
+        ]);
+
+        Paper::create([
+          'user_id' => '7',
+          'event_id' => '3',
+          'tipo' => 'I',
+        ]);
+        Paper::create([
+          'user_id' => '8',
+          'event_id' => '3',
           'tipo' => 'I',
         ]);
         // PaperFile::create([
