@@ -32,6 +32,7 @@ class EventController extends Controller
     $categorias = Category::all();
     // $contactos=Contacto::all();
     // $ubicacions = Ubicacion::all();
+    
     return view('data.eventos.create', compact('categorias'));
   }
 
