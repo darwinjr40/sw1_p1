@@ -44,8 +44,8 @@ class VentaController extends Controller
 
         $f = $request['paper_id']; //paper_file   : invitado
         $p = json_decode($request['b'], true); //paperFileId :array
+        $apareces =  Aparece::all()->Where('paper_id', $f)->whereIn('paper_file_id', $p);
         if ($p) {
-          $apareces =  Aparece::all()->Where('paper_id', $f)->whereIn('paper_file_id', $p);
         } else {
         }
         
