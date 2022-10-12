@@ -24,7 +24,7 @@ class EventController extends Controller
   public function index()
   {
     $evento = Event::paginate(5);
-    return view('eventos.index', compact('evento'));
+    return view('data.eventos.index', compact('evento'));
   }
 
   public function create()
@@ -120,6 +120,6 @@ class EventController extends Controller
     // return $eventos;//[0]['imagenes'][0];
     // $buscador=Evento::where('estado','inicio')->pluck('id','titulo');
     // Session::put('eventos', json_encode($buscador));
-    return view("eventos.showcliente", compact('eventos'));
+    return view("data.eventos.showcliente", compact('eventos'));
   }
 }
