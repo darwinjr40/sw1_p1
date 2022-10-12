@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class PhotosController extends Controller
 {
+  public function env()
+  {
+    // return env('AWS_DEFAULT_REGION');
+    return env('APP_SERVICE', 'http://127.0.0.1/sw1_p1/public/api/');
+  }
   public function subirFile(Request $request)
   {
     try {
@@ -48,14 +53,14 @@ class PhotosController extends Controller
         ],
       ]);
       $vector = $results->get('FaceMatches');
-      if (count($vector) > 0) {
-        DB::table('apareces')->insert([
-          'paper_id' => $request['paper_id'],
-          'paper_file_id' => $request['paper_file_id'],
-          'url' => $request['url'],
-          'urlP' => $request['urlP'],
-        ]);
-      }
+      // if (count($vector) > 0) {
+      //   DB::table('apareces')->insert([
+      //     'paper_id' => $request['paper_id'],
+      //     'paper_file_id' => $request['paper_file_id'],
+      //     'url' => $request['url'],
+      //     'urlP' => $request['urlP'],
+      //   ]);
+      // }
       return count($vector) > 0 ?
         response()->json(['data' => '1']) :
         response()->json(['data' => '0']);
@@ -70,6 +75,10 @@ class PhotosController extends Controller
   public function subirFile1(Request $request)
   {
     try {
+      // return response()->json([
+      //   'message' => 'Error al subir el archivo',
+      //   'data' => '2'
+      // ]);
       if (!$request->hasFile('files')) {
         return response()->json([
           'message' => 'Error al subir el archivo',

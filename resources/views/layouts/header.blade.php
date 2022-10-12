@@ -7,8 +7,7 @@
 
     @if(\Illuminate\Support\Facades\Auth::user())
         <li class="dropdown">
-          <a class="dropdown-item has-icon edit-profile" href="{{route('eventos.tienda')}}" data-id="{{ \Auth::id() }}">
-            <i class="fa fa-calendar"></i>Tienda</a>
+          
             <a href="#" data-toggle="dropdown"
                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('img/logo.png') }}"

@@ -142,7 +142,10 @@ class PaperFileController extends Controller
   public function store(Request $request)
   {
     // $data= [];
-
+    // return "nise";
+    // return env('APP_SERVICE', 'http://127.0.0.1');
+    // return config('services.endpoint.service');
+    // return env('AWS_DEFAULT_REGION');
     // for ($i=0; $i < 3; $i++) { 
     //   $data[] = Http::withHeaders(['Accept' => 'application/json'])
     //     ->async()
@@ -158,7 +161,6 @@ class PaperFileController extends Controller
     // sleep(6);
     // return "nise1";
     //               // $data->wait();
-    $promises = [];
     try {
       if ($request->hasFile('files')) {  //existe un archivo con nombre <files>
         $paper = Paper::findOrFail($request->paper_id);
@@ -187,7 +189,7 @@ class PaperFileController extends Controller
                 // ->async()
                 ->attach('files[]', fopen($i->url, 'r'))
                 ->attach('files[]', fopen($paperFile->url, 'r'))
-                ->post('http://localhost/sw1_p1/public/api/subirFile',  [
+                ->post(env('APP_SERVICE', 'http://127.0.0.1/sw1_p1/public').'/api/subirFile',  [
                   'paper_id' => $p->id,
                   'paper_file_id' => $paperFile->id,
                   'url' => $paperFile->url,
@@ -202,16 +204,16 @@ class PaperFileController extends Controller
               $c = $c . $res['data'] . '#####';
               $c1 = $c1 . $i->url . '#####';
               //   $c1 .= $i->url.'---'.$paperFile->url.';';
-              // if ($res['data'] == 1) {
+              if ($res['data'] == 1) {
               //   // $c .= $i->url.'---'.$paperFile->url.';';
-              //   DB::table('apareces')->insert([
-              //     'paper_id' => $p->id,
-              //     'paper_file_id' => $paperFile->id,
-              //     'url' => $paperFile->url,
-              //     'urlP' => $paperFile->urlP,
-              //   ]);
-              //   break;
-              // }
+                DB::table('apareces')->insert([
+                  'paper_id' => $p->id,
+                  'paper_file_id' => $paperFile->id,
+                  'url' => $paperFile->url,
+                  'urlP' => $paperFile->urlP,
+                ]);
+                break;
+              }
             }
           }
         }

@@ -1,7 +1,10 @@
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
-    <a class="nav-link" href="/">
-        <i class=" fas fa-building"></i><span>Dashboard</span>
-    </a>
+  {{-- <a class="nav-link" href="/">
+      <i class=" fas fa-building"></i><span>Dashboard</span>
+  </a> --}}
+  <a class="nav-link" href="{{route('eventos.tienda')}}">
+    <i class="fa fa-calendar"></i><span>Tienda</span>
+  </a>
 
     <a class="nav-link" href="{{route('home')}}">
         <i class=" fas fa-building"></i><span>Casita</span>
