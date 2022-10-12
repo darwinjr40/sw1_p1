@@ -23,7 +23,8 @@ class EventController extends Controller
   
   public function index()
   {
-    $evento = Event::paginate(5);
+    // $evento = Event::paginate(5);
+    $evento = Auth::user()->eventos;
     return view('data.eventos.index', compact('evento'));
   }
 
@@ -79,15 +80,16 @@ class EventController extends Controller
     // $papers = Paper::all()->whereIn('event_id', Event::all()->where('id', $event->id)->pluck('id'))->whereIn('user_id', User::all()->where('id', $user->id)->pluck('id'));
     // return $papers;
     if ($papers) {
+      $paper_id = $papers->id;
       if ($papers->tipo == User::FOTOGRAFO) {
-        $paper_id = $papers->id;
-        return redirect()->route('papers.indexFotografo', ['paper_id' => $paper_id]);
-
+        return redirect()->route('papers.indexFotografo', ['paper_id' => $paper_id]);        
         // $files = PaperFile::all();
         // return view('data.eventos.show-fotografo', compact('files'));
         // return "es fotografo";
       } else {
-        return "es Invitado";
+        // return "es Invitado";
+        return $papers;
+        return redirect()->route('aparece.indexPaper', ['paper_id' => $paper_id]);
       }
     }
     return "no puede acceder al evento";

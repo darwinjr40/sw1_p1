@@ -129,6 +129,6 @@
 <script src="{{ mix('assets/js/profile.js') }}"></script>
 <script src="{{ mix('assets/js/custom/custom.js') }}"></script> --}}
 @yield('scripts')
-
+@yield('css')
 </html>
 </html>

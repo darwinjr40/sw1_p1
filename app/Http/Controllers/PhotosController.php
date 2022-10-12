@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Aws\Rekognition\RekognitionClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PhotosController extends Controller
 {
@@ -18,7 +19,7 @@ class PhotosController extends Controller
           400
         ]);
       }
-      if ( count($request['files']) < 2) {
+      if (count($request['files']) < 2) {
         return response()->json([
           'message' => 'Error! tiene que subir 2 archivos minimos',
           'data' => '3',
@@ -47,6 +48,14 @@ class PhotosController extends Controller
         ],
       ]);
       $vector = $results->get('FaceMatches');
+      if (count($vector) > 0) {
+        DB::table('apareces')->insert([
+          'paper_id' => $request['paper_id'],
+          'paper_file_id' => $request['paper_file_id'],
+          'url' => $request['url'],
+          'urlP' => $request['urlP'],
+        ]);
+      }
       return count($vector) > 0 ?
         response()->json(['data' => '1']) :
         response()->json(['data' => '0']);
@@ -94,6 +103,7 @@ class PhotosController extends Controller
         ],
       ]);
       $vector = $results->get('FaceMatches');
+      return $vector;
       return count($vector) > 0 ?
         response()->json(['data' => '1']) :
         response()->json(['data' => '0']);

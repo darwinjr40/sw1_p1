@@ -32,9 +32,17 @@
                     <span style="" class="btn btn-primary btn-sm" data-toggle="modal"
                         data-target="#modalAgregarArchivos">
                         {{-- <span class="fas fa-plus-circle"></span> --}}
-                        <span class="fas fa-fw fa-plus"></span>
-                        Imagenes
+                        <span class="fas fa-fw fa-plus"></span>Imagenes 
                     </span>
+                    <form action="{{ route('papers.storeAparece') }}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      {{-- <a class="btn btn-sm btn-dark" href="{{ $file->url ? $file->url : '#' }}"><i
+                              class="fa fa-fw fa-eye"></i></a> --}}
+                      <button type="submit" class="btn btn-danger btn-sm"><i
+                              class="fa fa-fw fa-trash"></i> cargar ia
+                      </button>
+                      <input name="paper_id" type="hidden" value="{{ $paper_id }}" class="hidden">
+                    </form>
                 </div>
                 {{-- </div> --}}
 
@@ -45,21 +53,21 @@
                     <table class="table table-striped" id="imagenes" border="5">
                         <thead class="thead" style="background-color: #6777eF">
                             <tr>
-                                <th style="color:#fff">Nro</th>
+                                <th style="color:#fff; width: 10%">Nro</th>
                                 {{-- <th style="color:#fff">url</th> --}}
                                 <th style="color:#fff">imagen</th>
-                                <th style="color:#fff">acciones</th>
+                                <th style="color:#fff; width: 20%">acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($files as $file)
                                 <tr>
-                                    <td>{{ $file->id }}</td>
+                                    <td >{{ $file->id }}</td>
                                     {{-- <td>{{ $file->url }}</td> --}}
                                     <td class="border px-14">
-                                        <img src="{{ $file->url }}" alt="" width="60%">
+                                        <img src="{{ $file->url }}" alt="" class="ejemploblur" width="60%">
                                     </td>
-                                    <td>
+                                    <td >
                                         <form action="{{ route('papers.destroy', $file) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -116,3 +124,9 @@
     <!-- Fin Modal para agregar Imagenes -->
 
 @endsection
+
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/show-cliente/estilos.css') }}">
+{{-- ejemploblur --}}
+
+@stop

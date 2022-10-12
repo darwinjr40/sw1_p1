@@ -7,6 +7,8 @@ use App\Models\Event;
 use App\Models\Paper;
 use App\Models\PaperFile;
 use App\Models\User;
+use AWS\CRT\HTTP\Response;
+use GuzzleHttp\Promise\Utils;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -39,12 +41,12 @@ class PaperFileController extends Controller
     //
   }
 
-  public function store(Request $request)
+  public function store1(Request $request)
   {
     // return Auth::user()->userFiles[0]->url;
     // return $request['files'][0];
     // $request->validate(PaperFile::$rules);
-    
+
     // $data = Http::withHeaders(['Accept' => 'application/json'])
     //               ->attach('files[]', fopen('https://s3service12.s3.amazonaws.com/sw1_p1/userFile/7/OH8LGqrT0JPmgVB5BrMjInqdg4SETQFpr5E64XPX.jpg', 'r'))
     //               ->attach('files[]', fopen('https://s3service12.s3.amazonaws.com/sw1_p1/paperFile/1/q9MDJGqpFLizAcBhYwp3r2OCzF3GLLSpUdEn7b7h.jpg', 'r'))
@@ -65,33 +67,6 @@ class PaperFileController extends Controller
             'urlP' => $urlP,
             'paper_id' => $request->paper_id
           ]);
-
-          $paper = Paper::findOrFail($request->paper_id);
-          $a = Event::findOrFail($paper->id);
-          $papers = $a->papers;
-          foreach ($papers as $p) {
-            if ($p->tipo == User::INVITADO) {
-              $images = $p->user->userFiles;
-              foreach ($images as $i) {
-                // return $p->user->userFiles;
-                $data = Http::withHeaders(['Accept' => 'application/json'])
-                  ->attach('files[]', fopen($i->url, 'r'))
-                  ->attach('files[]', fopen($paperFile->url, 'r'))
-                  // ->async()
-                  ->post('http://localhost/sw1_p1/public/api/subirFile',  ['p1' => 'dsa']);
-                $res = $data->json();
-                if ($res['data'] == 1) {
-                  DB::table('apareces')->insert([
-                    'paper_id' => $paperFile->paper_id,
-                    'paper_file_id' => $paperFile->id,
-                    'url' => $paperFile->url,
-                    'urlP' => $paperFile->urlP,
-                  ]);                
-                  break;
-                }
-              }
-            }
-          }
         }
         return back()->with('success', 'se subieron las fotos con exito!');
       }
@@ -100,7 +75,42 @@ class PaperFileController extends Controller
     }
     return back()->with('success', 'archivo subido con exito');
   }
-
+  public function storeAparece(Request $request)
+  {
+    try {
+      $paper = Paper::findOrFail($request->paper_id);
+      $event = Event::findOrFail($paper->event_id);
+      $paperFiles = PaperFile::all()->where('paper_id', $paper->id);
+      $papersInvitado = $event->papers->where('tipo', User::INVITADO);
+      foreach ($paperFiles as $paperFile) {
+        foreach ($papersInvitado as $p) {
+          $aparece = Aparece::Where('paper_id', $p->id)->where('paper_file_id', $paperFile->id)->first();
+          $images = $p->user->userFiles;
+          foreach ($images as $i) {
+            // return $p->user->userFiles;
+            $data = Http::withHeaders(['Accept' => 'application/json'])
+              ->attach('files[]', fopen($i->url, 'r'))
+              ->attach('files[]', fopen($paperFile->url, 'r'))
+              // ->async()
+              ->post('http://localhost/sw1_p1/public/api/subirFile',  ['p1' => 'dsa']);
+            $res = $data->json();
+            if ($res['data'] == 1) {
+              DB::table('apareces')->insert([
+                'paper_id' => $p->user->id,
+                'paper_file_id' => $paperFile->id,
+                'url' => $paperFile->url,
+                'urlP' => $paperFile->urlP,
+              ]);
+              break;
+            }
+          }
+        }
+      }
+    } catch (\Throwable $th) {
+      return back()->withErrors('Algo salio mal!, intentelo mas tarde');
+    }
+    return back()->with('success', 'archivos identificados');
+  }
   public function sendAparece(Request $request): void
   {
     $file = fopen('', 'r');
@@ -127,6 +137,95 @@ class PaperFileController extends Controller
     // $mensaje = (isset($data['data'])) ? 'ERROR rellenar Ubicacion.' : 'EXITO Ubicacion creada.';
 
   }
+
+
+  public function store(Request $request)
+  {
+    // $data= [];
+
+    // for ($i=0; $i < 3; $i++) { 
+    //   $data[] = Http::withHeaders(['Accept' => 'application/json'])
+    //     ->async()
+    //     ->attach('files[]', fopen('https://s3service12.s3.amazonaws.com/sw1_p1/userFile/7/OH8LGqrT0JPmgVB5BrMjInqdg4SETQFpr5E64XPX.jpg', 'r'))
+    //     ->attach('files[]', fopen('https://s3service12.s3.amazonaws.com/sw1_p1/paperFile/1/q9MDJGqpFLizAcBhYwp3r2OCzF3GLLSpUdEn7b7h.jpg', 'r'))
+    //     ->post('http://localhost/sw1_p1/public/api/subirFile1',  ['p1' => 'dsa']);
+    //   // ->then(function ($response) {
+    //   //     // echo 'I completed! ' . $response->getBody();
+    //   //     return $response->getBody();
+    //   // });
+    // }
+    // $responses = Utils::unwrap($data);
+    // sleep(6);
+    // return "nise1";
+    //               // $data->wait();
+    $promises = [];
+    try {
+      if ($request->hasFile('files')) {  //existe un archivo con nombre <files>
+        $paper = Paper::findOrFail($request->paper_id);
+        $event = Event::findOrFail($paper->event_id);
+        $papersI = $event->papers->where('tipo', User::INVITADO);
+        
+        $dir = 'sw1_p1/paperFile/' . ($request->paper_id);
+        $files = $request->file('files'); //retorna un object con los datos de los archivos
+        foreach ($files as $f) {
+          $urlP = Storage::disk('s3')->put($dir, $f, 'public');
+          $url = Storage::disk('s3')->url($urlP);
+          $paperFile = PaperFile::create([
+            'url' => $url,
+            'urlP' => $urlP,
+            'paper_id' => $request->paper_id
+          ]);
+
+          $a = 0;
+          $c = '';
+          $c1 = '';
+          foreach ($papersI as $p) {
+            $images = $p->user->userFiles;
+            foreach ($images as $i) {
+              $a = $a + 1;
+              $res = Http::withHeaders(['Accept' => 'application/json'])
+                // ->async()
+                ->attach('files[]', fopen($i->url, 'r'))
+                ->attach('files[]', fopen($paperFile->url, 'r'))
+                ->post('http://localhost/sw1_p1/public/api/subirFile',  [
+                  'paper_id' => $p->id,
+                  'paper_file_id' => $paperFile->id,
+                  'url' => $paperFile->url,
+                  'urlP' => $paperFile->urlP,
+                ]);
+                // ->then(function ($response) {
+                //   //                   // echo 'I completed! ' . $response->getBody();
+                //   // return $response->getBody();
+                // });;
+
+              // $res = $data->json();
+              $c = $c . $res['data'] . '#####';
+              $c1 = $c1 . $i->url . '#####';
+              //   $c1 .= $i->url.'---'.$paperFile->url.';';
+              // if ($res['data'] == 1) {
+              //   // $c .= $i->url.'---'.$paperFile->url.';';
+              //   DB::table('apareces')->insert([
+              //     'paper_id' => $p->id,
+              //     'paper_file_id' => $paperFile->id,
+              //     'url' => $paperFile->url,
+              //     'urlP' => $paperFile->urlP,
+              //   ]);
+              //   break;
+              // }
+            }
+          }
+        }
+        return $a . '///' . $c . '$$$$$' . $c1;
+        // return $a;
+        return back()->with('success', 'se subieron las fotos con exito!');
+      }
+    } catch (\Throwable $th) {
+      return back()->withErrors('Algo salio mal!, intentelo mas tarde');
+    }
+    // Utils::unwrap($promises);
+    return back()->with('success', 'archivo subido con exito');
+  }
+
   public function show(PaperFile $paperFile)
   {
     //

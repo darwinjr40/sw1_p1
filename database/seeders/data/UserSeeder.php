@@ -17,6 +17,12 @@ class UserSeeder extends Seeder
     {
 
       User::create([
+        'name'=> 'admin',
+        'email'=> 'admin@gmail.com',
+        'password'=> Hash::make('0000'),
+        // 'rol_id'=> 1
+      ]);
+      User::create([
         'name'=> 'darwin',
         'email'=> 'darwin@gmail.com',
         'password'=> Hash::make('0000'),
@@ -30,12 +36,6 @@ class UserSeeder extends Seeder
         // 'rol_id'=> 1
       ]);
 
-      User::create([
-        'name'=> 'admin',
-        'email'=> 'admin@gmail.com',
-        'password'=> Hash::make('0000'),
-        // 'rol_id'=> 1
-      ]);
 
       User::create([
         'name'=> 'fotografo',
@@ -61,6 +61,13 @@ class UserSeeder extends Seeder
       User::create([
         'name'=> 'messi',
         'email'=> 'messi@gmail.com',
+        'password'=> Hash::make('0000'),
+        // 'rol_id'=> 1
+      ]);
+
+      User::create([
+        'name'=> 'cr7',
+        'email'=> 'cr7@gmail.com',
         'password'=> Hash::make('0000'),
         // 'rol_id'=> 1
       ]);

@@ -17,7 +17,7 @@ class PaperSeeder extends Seeder
     {
         Paper::create([
           'user_id' => '4',
-          'event_id' => '1',
+          'event_id' => '2',
           'tipo' => 'F',
         ]); 
         // Paper::create([
@@ -27,7 +27,7 @@ class PaperSeeder extends Seeder
         // ]);
         Paper::create([
           'user_id' => '4',
-          'event_id' => '2',
+          'event_id' => '1',
           'tipo' => 'F',
         ]);        
         Paper::create([
@@ -42,6 +42,11 @@ class PaperSeeder extends Seeder
         ]);
         Paper::create([
           'user_id' => '7',
+          'event_id' => '1',
+          'tipo' => 'I',
+        ]);
+        Paper::create([
+          'user_id' => '8',
           'event_id' => '1',
           'tipo' => 'I',
         ]);

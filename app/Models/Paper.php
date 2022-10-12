@@ -23,4 +23,9 @@ class Paper extends Model
   {
     return $this->hasMany(PaperFile::class);
   }
+
+  public function apareces()
+  {
+    return $this->hasMany(Aparece::class);
+  }
 }
